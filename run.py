@@ -73,25 +73,25 @@ def speech2text(input_file):
 
     return res
 
-def text2speech():
-    language = 'en'
-    speaker = 'lj_16khz'
-    device = torch.device('cpu')
-    model, symbols, sample_rate, example_text, apply_tts = torch.hub.load(repo_or_dir='snakers4/silero-models',
-                                                                        model='silero_tts',
-                                                                        language=language,
-                                                                        speaker=speaker)
+# def text2speech():
+#     language = 'en'
+#     speaker = 'lj_16khz'
+#     device = torch.device('cpu')
+#     model, symbols, sample_rate, example_text, apply_tts = torch.hub.load(repo_or_dir='snakers4/silero-models',
+#                                                                         model='silero_tts',
+#                                                                         language=language,
+#                                                                         speaker=speaker)
 
-    print(example_text)
-    example_text = "Hello world, my name is hamin lee. Nice to meet you. My Wife is sojung. I have a cat."
-    model = model.to(device)  # gpu or cpu
-    audio = apply_tts(texts=[example_text],
-                    model=model,
-                    sample_rate=sample_rate,
-                    symbols=symbols,
-                    device=device)  
-    audio = audio[0][tf.newaxis, :]
-    torchaudio.save('out1.wav', audio, sample_rate)
+#     print(example_text)
+#     example_text = "Hello world, my name is hamin lee. Nice to meet you. My Wife is sojung. I have a cat."
+#     model = model.to(device)  # gpu or cpu
+#     audio = apply_tts(texts=[example_text],
+#                     model=model,
+#                     sample_rate=sample_rate,
+#                     symbols=symbols,
+#                     device=device)  
+#     audio = audio[0][tf.newaxis, :]
+#     torchaudio.save('out1.wav', audio, sample_rate)
     
 if __name__ == "__main__":
     app.run()
