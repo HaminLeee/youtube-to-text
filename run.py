@@ -1,5 +1,4 @@
 import torch
-import zipfile
 import torchaudio
 from glob import glob
 from flask import Flask,render_template,request
@@ -7,6 +6,7 @@ import pafy
 import os
 import re
 
+YOUTUBE_REGEX="^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/", methods=[ "GET", "POST" ])
@@ -16,7 +16,7 @@ def hello_world():
     youtube_response, youtube_link, loading = "", "", ""
     if request.method == "POST":
         youtube_link = request.form.get("youtube_link")
-        youtube_regex = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
+        youtube_regex = YOUTUBE_REGEX
         loading = "loading..."
         video = youtube_parser(youtube_link)
         youtube_response = 'Title: {}, UserName: {}, Views: {}, Likes: {}'.format(video.title, video.username, video.viewcount, video.likes) if re.match(youtube_regex, youtube_link) != None else 'Invalid Link'
