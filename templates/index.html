@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -11,6 +11,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href= "{{ url_for('static',filename='styles/index.css') }}">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -18,14 +22,15 @@
         <![endif]-->
         <div class="container">
             <h1>Speech2Text</h1>
-            <form action="/" method = "POST">
-                <p>Youtube Link <input type = "text" name = "youtube_link" /></p>
-                <p><input type = "submit" value = "Submit" /></p>
+            <form class="container" action="/" method = "POST">
+                <p>Youtube Link <br/> <br/> <input type = "text" name = "youtube_link" /></p>
+                <p><input class="submit" type = "submit" value = "Submit" /></p>
             </form>
             <p>{{ youtube_link }}</p>
+            <img src="{{ thumbnail }}"/>
             <p>{{ youtube_response }} </p>
             <p>{{ loading }}</p>
-            <div>
+            <div class="container" >
                 <h1> Trasncript </h1>
                 <span>{{ transcript }}</span>
             </div>
