@@ -4,15 +4,12 @@ Given a youtube link, this code will extract the audio and run Speech2Text, outp
 
 This repository makes use of [Speech-to-text](https://github.com/snakers4/silero-models), to extract the transcript from a youtube video. 
 
-
 ## Installation
 ```
 pip install -r requirements.txt
 ```
 ## Demo
-### Using Web Cam
 <img src="./output.gif" style="width:30rem;"/>
-<!-- ![Alt Text](./output.gif) -->
 
 
 ## Getting Started

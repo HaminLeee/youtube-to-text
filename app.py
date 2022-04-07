@@ -8,41 +8,34 @@ import re
 # To check if its a valid youtube link
 YOUTUBE_REGEX="^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
-# Create flask app
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/", methods=[ "GET", "POST" ])
 def run():
-    # Initialize template params
-    transcript, youtube_link = "", ""
+    transcript, youtube_link, audio_path = "", "", "./audios/out/out.wav"
 
-    # If user submits the youtube link
     if request.method == "POST":
         youtube_link = request.form.get("youtube_link")
 
-        # Parse the youtube link
         video = youtube_parser(youtube_link)
 
         # Create transcript using speech-to-text
-        transcript = speech2text("./audios/out/out.wav")
+        transcript = speech2text(audio_path) if os.path.exists(audio_path) else ""
 
         return render_template("index.html", transcript=transcript, youtube_link=youtube_link, video=video)
 
     # When user haven't submitted yet
     if request.method == "GET":
         # Create transcript if output file exists
-        transcript = speech2text("./audios/out/out.wav")
+        transcript = speech2text(audio_path) if os.path.exists(audio_path) else ""
         return render_template("index.html", transcript=transcript, youtube_link=youtube_link)
 
 def youtube_parser(url):   
     # Remove in.m4a if it exists 
     os.system("rm -f ./audios/in/in.m4a")
 
-    # Parse video using pafy
     video = pafy.new(url)
     
-    # Get audio stream and download it
-    audiostreams = video.audiostreams
     bestaudio = video.getbestaudio()
     bestaudio.download("./audios/in/in.m4a")
 
